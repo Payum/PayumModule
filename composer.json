@@ -1,0 +1,48 @@
+{
+    "name":        "payum/payum-module",
+    "description": "Zend Framework 2 Module for Payum payment lib",
+    "type":        "library",
+    "license":     "MIT",
+    "homepage":    "https://github.com/Payum/PayumModule",
+    "keywords":    ["payum", "payment", "zf2", "paypal", "be2bill", "authorize.net", "payex", "omnipay"],
+    "authors": [
+        {
+            "name": "Kotlyar Maksim",
+            "email": "kotlyar.maksim@gmail.com"
+        },
+        {
+            "name": "Community",
+            "homepage": "https://github.com/Payum/PayumModule/graphs/contributors"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "~2.2",
+        "payum/payum": "0.5.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "suggest": {
+        "payum/paypal-express-checkout-nvp": "If you want to use paypal express checkout nvp gateway",
+        "payum/paypal-pro-checkout-nvp": "If you want to use paypal pro checkout nvp gateway",
+        "payum/authorize-net-aim": "If you want to use authorize.net gateway",
+        "payum/be2bill": "If you want to use be2bill gateway",
+        "payum/payex": "If you want to use payex gateway",
+        "payum/omnipay-bridge": "If you want to use omnipay provided gateways"
+    },
+    "autoload": {
+        "psr-0": {
+            "Payum\\PayumModule": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.5.x-dev"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
