@@ -3,7 +3,7 @@ PayumModule
 
 The PayumModule adds support of [payum](https://github.com/Payum/Payum) lib to [zendframework](http://framework.zend.com/) framework.
 
-_**NOTE**: UNDER DEVELOPMENT: I am looking for zf2 expert who wants maintane the bundle, since I am symfony2 developer and dont know zend much._
+_**NOTE**: The module is under development. Since I am symfony2 developer and dont know zend much, I am looking for zf2 expert who wants maintane the bundle. You can look at [symfony bundle](https://github.com/Payum/PayumBundle) to get what the module will look like._
 
 Supported Payments:
 -------------------
