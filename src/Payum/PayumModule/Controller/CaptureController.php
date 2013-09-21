@@ -4,7 +4,7 @@ namespace Payum\PayumModule\Controller;
 use Payum\Request\RedirectUrlInteractiveRequest;
 use Payum\Request\SecuredCaptureRequest;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\ServiceLocator;
 use Zend\View\Helper\ViewModel;
 
 use Payum\PayumModule\Service\TokenManager;
