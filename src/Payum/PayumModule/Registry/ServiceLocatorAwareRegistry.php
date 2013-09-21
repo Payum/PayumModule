@@ -33,6 +33,6 @@ class ServiceLocatorAwareRegistry extends AbstractRegistry implements ServiceLoc
      */
     protected function getService($id)
     {
-        return $this->serviceLocator->get($id);
+        return is_object($id) ? $id : $this->serviceLocator->get($id);
     }
 }

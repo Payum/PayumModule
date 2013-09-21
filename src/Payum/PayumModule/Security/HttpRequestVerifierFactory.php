@@ -1,5 +1,5 @@
 <?php
-namespace Payum\PayumModule\Service;
+namespace Payum\PayumModule\Security;
 
 use Payum\PayumModule\Options\PayumOptions;
 use Zend\ServiceManager\FactoryInterface;

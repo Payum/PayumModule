@@ -21,9 +21,9 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
     {
         return array(
             'factories' => array(
-                'payum' => 'Payum\PayumModule\Service\RegistryFactory',
-                'payum.security.token_storage' => 'Payum\PayumModule\Service\TokenStorageFactory',
-                'payum.security.http_request_verifier' => 'Payum\PayumModule\Service\HttpRequestVerifierFactory',
+                'payum' => 'Payum\PayumModule\Registry\RegistryFactory',
+                'payum.security.token_storage' => 'Payum\PayumModule\Security\TokenStorageFactory',
+                'payum.security.http_request_verifier' => 'Payum\PayumModule\Security\HttpRequestVerifierFactory',
             ),
         );
     }

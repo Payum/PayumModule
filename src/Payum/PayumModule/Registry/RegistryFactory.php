@@ -1,5 +1,5 @@
 <?php
-namespace Payum\PayumModule\Service;
+namespace Payum\PayumModule\Registry;
 
 use Payum\PayumModule\Options\PayumOptions;
 use Payum\PayumModule\Registry\ServiceLocatorAwareRegistry;
@@ -16,9 +16,6 @@ class RegistryFactory implements FactoryInterface
         $options = $serviceLocator->get('Config');
         $options = new PayumOptions($options['payum']);
 
-        $registry = new ServiceLocatorAwareRegistry($options->getPayments(), $options->getStorages(), null, null);
-        $registry->setServiceLocator($serviceLocator);
-
-        return $registry;
+        return new ServiceLocatorAwareRegistry($options->getPayments(), $options->getStorages(), null, null);
     }
 }

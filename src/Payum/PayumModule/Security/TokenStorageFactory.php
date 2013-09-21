@@ -1,5 +1,5 @@
 <?php
-namespace Payum\PayumModule\Service;
+namespace Payum\PayumModule\Security;
 
 use Payum\PayumModule\Options\PayumOptions;
 use Zend\ServiceManager\FactoryInterface;
@@ -15,6 +15,9 @@ class TokenStorageFactory implements FactoryInterface
         $options = $serviceLocator->get('Config');
         $options = new PayumOptions($options['payum']);
 
-        return $serviceLocator->get($options->getTokenStorage());
+        return is_object($options->getTokenStorage()) ?
+            $options->getTokenStorage() :
+            $serviceLocator->get($options->getTokenStorage())
+        ;
     }
 }

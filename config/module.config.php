@@ -11,4 +11,22 @@ return array(
     //        )
         ),
     ),
+//    'controllers' => array(
+//        'invokables' => array(
+//            'payum_capture' => 'Payum\PayumModule\Controller\CaptureController',
+//        ),
+//    ),
+//    'router' => array(
+//        'routes' => array(
+//            'payum_capture' => array(
+//                'options' => array(
+//                    'route' => '/payment/capture',
+//                    'defaults' => array(
+//                        'controller' => 'payum_capture',
+//                        'action'     => 'do',
+//                    ),
+//                ),
+//            ),
+//        ),
+//    ),
 );
