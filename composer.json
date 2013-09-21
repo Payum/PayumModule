@@ -19,7 +19,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "~2.2",
-        "payum/payum": "0.5.*"
+        "payum/payum": "0.6.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.5.x-dev"
+            "dev-master": "0.6.x-dev"
         }
     },
     "config": {
