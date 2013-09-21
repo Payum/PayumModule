@@ -1,6 +1,7 @@
 <?php
 namespace Payum\PayumModule\ServiceFactory;
 
+use Payum\PayumModule\Registry\ServiceManagerAwareRegistry;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -11,6 +12,6 @@ class RegistryFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        //TODO
+        new ServiceManagerAwareRegistry($serviceLocator->get)
     }
 }

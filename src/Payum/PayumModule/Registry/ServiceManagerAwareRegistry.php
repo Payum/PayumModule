@@ -18,7 +18,6 @@ class ServiceManagerAwareRegistry extends AbstractRegistry implements ServiceMan
     public function setServiceManager(ServiceManager $serviceManager)
     {
         $this->serviceManager = $serviceManager;
-        // TODO: Implement setServiceManager() method.
     }
 
     /**
