@@ -12,7 +12,7 @@ class HttpRequestVerifierFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new HttpRequestVerifierFactory(
+        return new HttpRequestVerifier(
             $serviceLocator->get('payum.security.token_storage')
         );
     }

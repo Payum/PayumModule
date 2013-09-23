@@ -13,8 +13,8 @@ class RegistryFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $options = $serviceLocator->get('Config');
-        $options = new PayumOptions($options['payum']);
+        /** @var PayumOptions $options */
+        $options = $serviceLocator->get('payum.options');
 
         return new ServiceLocatorAwareRegistry($options->getPayments(), $options->getStorages(), null, null);
     }

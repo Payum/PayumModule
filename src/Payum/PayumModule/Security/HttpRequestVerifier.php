@@ -37,7 +37,7 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
         }
 
         /** @var $httpRequest Request */
-        if (false === $hash = $httpRequest->getMetadata('payum_token', $httpRequest->getQuery('payum_token'))) {
+        if (false === $hash = $httpRequest->getQuery('payum_token')) {
             //TODO we should set 404 to response but I do not know how. symfony just throws not found exception.
             throw new InvalidArgumentException('Token parameter not set in request');
         }
@@ -52,7 +52,11 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
 
             if ($httpRequest->getUri()->getPath() != parse_url($token->getTargetUrl(), PHP_URL_PATH)) {
                 //TODO here again should be 400
-                throw new InvalidArgumentException('The current url %s not match target url %s set in the token.', $httpRequest->getUri()->getPath(), $token->getTargetUrl());
+                throw new InvalidArgumentException(sprintf(
+                    'The current url %s not match target url %s set in the token.',
+                    $httpRequest->getUri()->getPath(),
+                    parse_url($token->getTargetUrl(), PHP_URL_PATH))
+                );
             }
         }
 

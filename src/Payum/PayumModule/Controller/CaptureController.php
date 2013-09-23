@@ -31,6 +31,7 @@ class CaptureController extends PayumController
             $payment->execute($capture);
         } catch (RedirectUrlInteractiveRequest $interactiveRequest) {
             $this->redirect()->toUrl($interactiveRequest->getUrl());
+            return;
         }
 
         $this->getHttpRequestVerifier()->invalidate($token);

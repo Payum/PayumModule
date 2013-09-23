@@ -12,8 +12,8 @@ class TokenStorageFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $options = $serviceLocator->get('Config');
-        $options = new PayumOptions($options['payum']);
+        /** @var PayumOptions $options */
+        $options = $serviceLocator->get('payum.options');
 
         return is_object($options->getTokenStorage()) ?
             $options->getTokenStorage() :

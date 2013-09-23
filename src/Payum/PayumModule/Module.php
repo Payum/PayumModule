@@ -3,8 +3,9 @@ namespace Payum\PayumModule;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\ModuleManager\Feature\RouteProviderInterface;
 
-class Module implements ConfigProviderInterface, ServiceProviderInterface
+class Module implements ConfigProviderInterface, ServiceProviderInterface, RouteProviderInterface
 {
     /**
      * {@inheritDoc}
@@ -19,12 +20,14 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface
      */
     public function getServiceConfig()
     {
-        return array(
-            'factories' => array(
-                'payum' => 'Payum\PayumModule\Registry\RegistryFactory',
-                'payum.security.token_storage' => 'Payum\PayumModule\Security\TokenStorageFactory',
-                'payum.security.http_request_verifier' => 'Payum\PayumModule\Security\HttpRequestVerifierFactory',
-            ),
-        );
+        return include __DIR__ . '/../../../config/services.config.php';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRouteConfig()
+    {
+        return include __DIR__ . '/../../../config/routes.config.php';
     }
 }
