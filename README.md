@@ -5,6 +5,7 @@ The module integrates payum payment framework. It provide end solutions and allo
 ## Resources
 
 * [Documentation](docs/index.md)
+* [Sandbox](https://github.com/makasim/PayumModuleSandbox)
 * [Questions](http://stackoverflow.com/questions/tagged/payum)
 * [Issue Tracker](https://github.com/Payum/PayumModule/issues)
 
