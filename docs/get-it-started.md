@@ -30,9 +30,9 @@ use Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory;
 use Payum\Storage\FilesystemStorage;
 
 $paypalPayment = PaymentFactory::create(new Api(new Curl(), array(
-    'username' => 'testrj_1312968849_biz_api1.remixjobs.com',
-    'password' => '1312968888',
-    'signature' => 'Azgw.f7NYjBAlDQEpbI1D06D4ACAAXfoVSV7k4JUuGAPRHzhDbQR2r90',
+    'username' => 'REPLACE WITH YOURS',
+    'password' => 'REPLACE WITH YOURS',
+    'signature' => 'REPLACE WITH YOURS',
     'sandbox' => true
 )));
 
