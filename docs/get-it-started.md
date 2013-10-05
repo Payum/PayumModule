@@ -9,7 +9,7 @@ Add payum module to your application:
 ```php
 <?php
 // config/application.php
-<?php
+
 return array(
     'modules' => array(
         'Payum\PayumModule'
