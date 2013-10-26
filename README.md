@@ -10,6 +10,7 @@ Provide nice configuration layer, secured capture controller, storages integrati
 * [Sandbox](https://github.com/makasim/PayumModuleSandbox)
 * [Questions](http://stackoverflow.com/questions/tagged/payum)
 * [Issue Tracker](https://github.com/Payum/PayumModule/issues)
+* [Twitter](https://twitter.com/payumphp)
 
 ## Contributing
 
@@ -17,8 +18,7 @@ PayumModule is an open source, community-driven project. Pull requests are very 
 
 ## Like it? Spread the world!
 
-Star payum module on [github](https://github.com/Payum/PayumModule) or [packagist](https://packagist.org/packages/payum/payum-module). 
-You may also drop a message on Twitter.
+Star payum module on [github](https://github.com/Payum/PayumModule) or [packagist](https://packagist.org/packages/payum/payum-module).
 
 ## License
 
