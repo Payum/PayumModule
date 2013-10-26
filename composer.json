@@ -23,7 +23,8 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "~2.2",
-        "payum/payum": "0.7.*@dev"
+        "payum/payum": "0.7.*@dev",
+        "tccltd/tcc-abstract-module": "0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7"

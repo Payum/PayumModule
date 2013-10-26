@@ -1,33 +1,10 @@
 <?php
+
 namespace Payum\PayumModule;
 
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\RouteProviderInterface;
+use TccAbstractModule\Module\AbstractModule;
 
-class Module implements ConfigProviderInterface, ServiceProviderInterface, RouteProviderInterface
+class Module extends AbstractModule
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function getConfig()
-    {
-        return include __DIR__ . '/../../../config/module.config.php';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getServiceConfig()
-    {
-        return include __DIR__ . '/../../../config/services.config.php';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getRouteConfig()
-    {
-        return include __DIR__ . '/../../../config/routes.config.php';
-    }
+    protected $relativeModuleDir = '../../../';
 }

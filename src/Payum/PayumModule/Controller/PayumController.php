@@ -1,18 +1,43 @@
 <?php
+
 namespace Payum\PayumModule\Controller;
 
-use Payum\Security\HttpRequestVerifierInterface;
 use Payum\Registry\RegistryInterface;
+use Payum\Security\HttpRequestVerifierInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class PayumController extends AbstractActionController
 {
     /**
+     * @var RegistryInterface
+     */
+    protected $payumRegistry;
+
+    /**
+     * @var HttpRequestVerifierInterface
+     */
+    protected $httpRequestVerifier;
+
+
+
+    /**
      * @return RegistryInterface
      */
     protected function getPayum()
     {
-        return $this->serviceLocator->get('payum');
+        return $this->payumRegistry;
+    }
+
+    /**
+     * @param RegistryInterface $payumRegistry
+     * @return \Payum\PayumModule\Controller\PayumController
+     */
+    public function setPayum(RegistryInterface $payumRegistry)
+    {
+        $this->payumRegistry = $payumRegistry;
+
+        // Fluent interface.
+        return $this;
     }
 
     /**
@@ -20,6 +45,18 @@ abstract class PayumController extends AbstractActionController
      */
     protected function getHttpRequestVerifier()
     {
-        return $this->serviceLocator->get('payum.security.http_request_verifier');
+        return $this->httpRequestVerifier;
+    }
+
+    /**
+     * @param HttpRequestVerifierInterface $httpRequestVerifier
+     * @return \Payum\PayumModule\Controller\PayumController
+     */
+    public function setHttpRequestVerifier(HttpRequestVerifierInterface $httpRequestVerifier)
+    {
+        $this->httpRequestVerifier = $httpRequestVerifier;
+
+        // Fluent interface.
+        return $this;
     }
 }
