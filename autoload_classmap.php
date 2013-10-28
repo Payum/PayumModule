@@ -3,6 +3,7 @@
 return array(
   'Payum\PayumModule\Controller\CaptureController'         => __DIR__ . '/src/Payum/PayumModule/Controller/CaptureController.php',
   'Payum\PayumModule\Controller\PayumController'           => __DIR__ . '/src/Payum/PayumModule/Controller/PayumController.php',
+  'Payum\PayumModule\Module\AbstractModuleNoTraits'        => __DIR__ . '/src/Payum/PayumModule/Module/AbstractModuleNoTraits.php',
   'Payum\PayumModule\Module'                               => __DIR__ . '/src/Payum/PayumModule/Module.php',
   'Payum\PayumModule\Options\PayumOptions'                 => __DIR__ . '/src/Payum/PayumModule/Options/PayumOptions.php',
   'Payum\PayumModule\Options\PayumOptionsFactory'          => __DIR__ . '/src/Payum/PayumModule/Options/PayumOptionsFactory.php',

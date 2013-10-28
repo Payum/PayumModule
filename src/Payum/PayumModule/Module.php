@@ -2,9 +2,9 @@
 
 namespace Payum\PayumModule;
 
-use TccAbstractModule\Module\AbstractModule;
+use Payum\PayumModule\Module\AbstractModuleNoTraits;
 
-class Module extends AbstractModule
+class Module extends AbstractModuleNoTraits
 {
     protected $relativeModuleDir = '../../../';
 }
