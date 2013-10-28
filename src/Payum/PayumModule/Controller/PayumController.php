@@ -11,52 +11,42 @@ abstract class PayumController extends AbstractActionController
     /**
      * @var RegistryInterface
      */
-    protected $payumRegistry;
+    protected $payum;
 
     /**
      * @var HttpRequestVerifierInterface
      */
     protected $httpRequestVerifier;
 
-
+    /**
+     * Create Payum Controller using required dependencies from parameters.
+     *
+     * @param RegistryInterface $payum
+     * @param HttpRequestVerifierInterface $httpRequestVerifier
+     */
+    public function __construct(RegistryInterface $payum, HttpRequestVerifierInterface $httpRequestVerifier)
+    {
+        $this->payum = $payum;
+        $this->httpRequestVerifier = $httpRequestVerifier;
+    }
 
     /**
+     * Retrieve the Payum Registry.
+     *
      * @return RegistryInterface
      */
     protected function getPayum()
     {
-        return $this->payumRegistry;
+        return $this->payum;
     }
 
     /**
-     * @param RegistryInterface $payumRegistry
-     * @return \Payum\PayumModule\Controller\PayumController
-     */
-    public function setPayum(RegistryInterface $payumRegistry)
-    {
-        $this->payumRegistry = $payumRegistry;
-
-        // Fluent interface.
-        return $this;
-    }
-
-    /**
+     * Retrieve the Payum HttpRequestVerifier.
+     *
      * @return HttpRequestVerifierInterface
      */
     protected function getHttpRequestVerifier()
     {
         return $this->httpRequestVerifier;
-    }
-
-    /**
-     * @param HttpRequestVerifierInterface $httpRequestVerifier
-     * @return \Payum\PayumModule\Controller\PayumController
-     */
-    public function setHttpRequestVerifier(HttpRequestVerifierInterface $httpRequestVerifier)
-    {
-        $this->httpRequestVerifier = $httpRequestVerifier;
-
-        // Fluent interface.
-        return $this;
     }
 }
