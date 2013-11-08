@@ -16,6 +16,14 @@ class RegistryFactory implements FactoryInterface
         /** @var PayumOptions $options */
         $options = $serviceLocator->get('payum.options');
 
-        return new ServiceLocatorAwareRegistry($options->getPayments(), $options->getStorages(), null, null);
+        $registry = new ServiceLocatorAwareRegistry(
+            $options->getPayments(),
+            $options->getStorages(),
+            null,
+            null
+        );
+        $registry->registerStorageExtensions();
+
+        return $registry;
     }
 }
