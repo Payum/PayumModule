@@ -2,7 +2,36 @@
 
 I am using paypal here but it could be adopted for any other supported payments.
 
-## Configure
+## Configuration
+
+First add some models to application:
+
+```php
+<?php
+namespace Application\Model;
+
+use Payum\Model\ArrayObject;
+
+class PaymentDetails extends \ArrayObject
+{
+}
+```
+
+The other one is `PaymentSecurityToken`.
+We will use it to secure our payment operations:
+
+```php
+<?php
+namespace Application\Model;
+
+use Payum\Model\Token;
+
+class PaymentSecurityToken extends Token
+{
+}
+```
+
+_**Note**: We provide Doctrine ORM\MognoODM mapping for these parent models too.
 
 Add payum module to your application:
 
@@ -29,59 +58,30 @@ use Payum\Paypal\ExpressCheckout\Nvp\Api;
 use Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory;
 use Payum\Storage\FilesystemStorage;
 
-$paypalPayment = PaymentFactory::create(new Api(new Curl(), array(
-    'username' => 'REPLACE WITH YOURS',
-    'password' => 'REPLACE WITH YOURS',
-    'signature' => 'REPLACE WITH YOURS',
-    'sandbox' => true
-)));
-
-$paypalPaymentDetailsStorage = new FilesystemStorage(
-    __DIR__.'/../../data',
-    'Application\Model\PaypalPaymentDetails',
-    'id'
-);
-
-$paypalPayment->addExtension(new StorageExtension($paypalPaymentDetailsStorage));
+$detailsClass = 'Application\Model\PaymentDetails';
 
 return array(
     'payum' => array(
         'token_storage' => new FilesystemStorage(
             __DIR__.'/../../data',
-            'Payum\Model\Token',
+            'Application\Model\PaymentSecurityToken',
             'hash'
         ),
         'payments' => array(
-            'paypal' => $paypalPayment
+            'paypal' => PaymentFactory::create(new Api(new Curl(), array(
+                'username' => 'REPLACE WITH YOURS',
+                'password' => 'REPLACE WITH YOURS',
+                'signature' => 'REPLACE WITH YOURS',
+                'sandbox' => true
+            )))
         ),
         'storages' => array(
             'paypal' => array(
-                'Application\Model\PaypalPaymentDetails' => $paypalPaymentDetailsStorage,
+                $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass),
             )
         )
     ),
 );
-```
-
-Extend paypal payment details model:
-
-```php
-<?php
-// module/Application/src/Application/Model/PaypalPaymentDetails.php
-
-namespace Application\Model;
-
-use Payum\Paypal\ExpressCheckout\Nvp\Model\PaymentDetails;
-
-class PaypalPaymentDetails extends  PaymentDetails
-{
-    protected $id;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-}
 ```
 
 ## Prepare paypal payment.
@@ -100,8 +100,10 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $detailsClass = 'Application\Model\PaymentDetails';
+
         $tokenStorage = $this->getServiceLocator()->get('payum.security.token_storage');
-        $storage = $this->getServiceLocator()->get('payum')->getStorageForClass('Application\Model\PaypalPaymentDetails', 'paypal');
+        $storage = $this->getServiceLocator()->get('payum')->getStorageForClass($detailsClass, 'paypal');
 
         $paymentDetails = $storage->createModel();
         $paymentDetails['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
@@ -112,7 +114,7 @@ class IndexController extends AbstractActionController
         $doneToken->setPaymentName('paypal');
         $doneToken->setDetails($storage->getIdentificator($paymentDetails));
         $doneToken->setTargetUrl($this->url()->fromRoute(
-            'payment_details',
+            'capture_done',
             array(),
             array('force_canonical' => true, 'query' => array('payum_token' => $doneToken->getHash()))
         ));
@@ -177,7 +179,7 @@ and route for it:
 return array(
     'router' => array(
         'routes' => array(
-            'done' => array(
+            'capture_done' => array(
                 'type' => 'segment',
                 'options' => array(
                     'route'    => '/done[/:payum_token]',
@@ -191,6 +193,5 @@ return array(
     ),
 );
 ```
-
 
 Back to [index](index.md).
