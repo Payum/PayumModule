@@ -1,6 +1,7 @@
 # Get it started.
 
-I am using paypal here but it could be adopted for any other supported payments.
+In this chapter we would show basic setup and usage of payum module for [zf2](http://framework.zend.com/).
+We are using paypal here but it could be adopted for any other supported payments.
 
 ## Configure
 
