@@ -4,7 +4,7 @@ I am using paypal here but it could be adopted for any other supported payments.
 
 ## Configuration
 
-First add some models to application:
+First add some models to your application:
 
 ```php
 <?php
@@ -31,7 +31,7 @@ class PaymentSecurityToken extends Token
 }
 ```
 
-_**Note**: We provide Doctrine ORM\MognoODM mapping for these parent models too.
+_**Note**: We provide Doctrine ORM\MongoODM mapping for these parent models too.
 
 Add payum module to your application:
 
