@@ -2,8 +2,8 @@
 
 namespace Payum\PayumModule\Controller;
 
-use Payum\Registry\RegistryInterface;
-use Payum\Security\HttpRequestVerifierInterface;
+use Payum\Core\Registry\RegistryInterface;
+use Payum\Core\Security\HttpRequestVerifierInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 
 abstract class PayumController extends AbstractActionController

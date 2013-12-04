@@ -19,14 +19,10 @@
             "homepage": "https://github.com/Payum/PayumModule/contributors"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "~2.2",
-        "payum/payum": "0.7.*@dev"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~3.7"
+        "payum/core": "0.7.*@dev"
     },
     "suggest": {
         "payum/paypal-express-checkout-nvp": "If you want to use paypal express checkout nvp gateway",

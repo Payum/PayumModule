@@ -1,7 +1,7 @@
 <?php
 namespace Payum\PayumModule\Registry;
 
-use Payum\Registry\SimpleRegistry;
+use Payum\Core\Registry\SimpleRegistry;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 

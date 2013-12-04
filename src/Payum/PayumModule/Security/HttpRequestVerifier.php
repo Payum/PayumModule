@@ -1,17 +1,17 @@
 <?php
 namespace Payum\PayumModule\Security;
 
-use Payum\Exception\InvalidArgumentException;
-use Payum\Model\Token;
-use Payum\Security\HttpRequestVerifierInterface;
-use Payum\Security\TokenInterface;
-use Payum\Storage\StorageInterface;
+use Payum\Core\Exception\InvalidArgumentException;
+use Payum\Core\Model\Token;
+use Payum\Core\Security\HttpRequestVerifierInterface;
+use Payum\Core\Security\TokenInterface;
+use Payum\Core\Storage\StorageInterface;
 use Zend\Http\Request;
 
 class HttpRequestVerifier implements HttpRequestVerifierInterface
 {
     /**
-     * @var \Payum\Storage\StorageInterface
+     * @var \Payum\Core\Storage\StorageInterface
      */
     protected $tokenStorage;
 

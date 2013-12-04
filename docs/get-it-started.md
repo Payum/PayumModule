@@ -11,7 +11,7 @@ First add some models to your application:
 <?php
 namespace Application\Model;
 
-use Payum\Model\ArrayObject;
+use Payum\Core\Model\ArrayObject;
 
 class PaymentDetails extends \ArrayObject
 {
@@ -25,7 +25,7 @@ We will use it to secure our payment operations:
 <?php
 namespace Application\Model;
 
-use Payum\Model\Token;
+use Payum\Core\Model\Token;
 
 class PaymentSecurityToken extends Token
 {
@@ -54,10 +54,10 @@ Configure payum module:
 // config/autoload/global.php
 
 use Buzz\Client\Curl;
-use Payum\Extension\StorageExtension;
+use Payum\Core\Extension\StorageExtension;
+use Payum\Core\Storage\FilesystemStorage;
 use Payum\Paypal\ExpressCheckout\Nvp\Api;
 use Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory;
-use Payum\Storage\FilesystemStorage;
 
 $detailsClass = 'Application\Model\PaymentDetails';
 
@@ -91,7 +91,7 @@ return array(
 <?php
 namespace Application\Controller;
 
-use Payum\Request\BinaryMaskStatusRequest;
+use Payum\Core\Request\BinaryMaskStatusRequest;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -149,7 +149,7 @@ We will be redirected to it after the payment is done. Let's start from action:
 <?php
 namespace Application\Controller;
 
-use Payum\Request\BinaryMaskStatusRequest;
+use Payum\Core\Request\BinaryMaskStatusRequest;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;

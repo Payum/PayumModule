@@ -1,15 +1,9 @@
 <?php
 namespace Payum\PayumModule\Controller;
 
-use Payum\Request\RedirectUrlInteractiveRequest;
-use Payum\Request\SecuredCaptureRequest;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\ServiceManager\ServiceLocator;
-use Zend\View\Helper\ViewModel;
-
-use Payum\PayumModule\Service\TokenManager;
-use Payum\Registry\RegistryInterface;
-use Payum\Request\BinaryMaskStatusRequest;
+use Payum\Core\Request\RedirectUrlInteractiveRequest;
+use Payum\Core\Request\SecuredCaptureRequest;
+use Payum\Core\Request\BinaryMaskStatusRequest;
 
 class CaptureController extends PayumController
 {
