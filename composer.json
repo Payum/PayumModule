@@ -1,6 +1,6 @@
 {
     "name":        "payum/payum-module",
-    "description": "Zend Framework 2 Module for Payum payment lib",
+    "description": "Rich payment solutions for zend framework2. Paypal, payex, authorize.net, be2bill, omnipay, recurring paymens, instant notifications and many more",
     "type":        "library",
     "license":     "MIT",
     "homepage":    "http://payum.forma-dev.com",
