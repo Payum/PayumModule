@@ -174,7 +174,8 @@ abstract class AbstractModuleNoTraits implements
      */
     protected function getDir()
     {
-        return dirname((new \ReflectionClass(get_class($this)))->getFileName());
+        $reflectionClass = new \ReflectionClass(get_class($this));
+        return dirname($reflectionClass->getFileName());
     }
 
     /**
@@ -185,6 +186,7 @@ abstract class AbstractModuleNoTraits implements
      */
     protected function getNamespace()
     {
-        return (new \ReflectionClass(get_class($this)))->getNamespaceName();
+        $reflectionClass = new \ReflectionClass(get_class($this));
+        return dirname($reflectionClass->getFileName());
     }
 }
