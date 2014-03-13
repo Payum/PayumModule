@@ -187,6 +187,6 @@ abstract class AbstractModuleNoTraits implements
     protected function getNamespace()
     {
         $reflectionClass = new \ReflectionClass(get_class($this));
-        return dirname($reflectionClass->getFileName());
+        return dirname($reflectionClass->getNamespaceName());
     }
 }
