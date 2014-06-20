@@ -77,9 +77,7 @@ return array(
             )))
         ),
         'storages' => array(
-            'paypal' => array(
-                $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass),
-            )
+            $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass),
         )
     ),
 );
@@ -95,7 +93,6 @@ use Payum\Core\Request\BinaryMaskStatusRequest;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
@@ -104,7 +101,7 @@ class IndexController extends AbstractActionController
         $detailsClass = 'Application\Model\PaymentDetails';
 
         $tokenStorage = $this->getServiceLocator()->get('payum.security.token_storage');
-        $storage = $this->getServiceLocator()->get('payum')->getStorageForClass($detailsClass, 'paypal');
+        $storage = $this->getServiceLocator()->get('payum')->getStorage($detailsClass);
 
         $paymentDetails = $storage->createModel();
         $paymentDetails['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
@@ -153,7 +150,7 @@ use Payum\Core\Request\BinaryMaskStatusRequest;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class IndexController extends AbstractActionController
 {
@@ -165,11 +162,12 @@ class IndexController extends AbstractActionController
 
         $payment->execute($status = new BinaryMaskStatusRequest($token));
 
-        var_dump(json_encode(array('status' => $status->getStatus()) + iterator_to_array($status->getModel()), JSON_PRETTY_PRINT));
-        die;
+        return new JsonModel(array('status' => $status->getStatus()) + iterator_to_array($status->getModel()));
     }
 }
 ```
+
+_**Note**: You would have to enable json strategy in view_manager to make it work. More details in this [article](http://akrabat.com/zend-framework-2/returning-json-from-a-zf2-controller-action/)_
 
 and route for it:
 
