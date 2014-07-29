@@ -15,6 +15,7 @@ use Payum\Core\Model\ArrayObject;
 
 class PaymentDetails extends \ArrayObject
 {
+    protected $payum_id;
 }
 ```
 
