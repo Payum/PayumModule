@@ -15,7 +15,7 @@ use Payum\Core\Model\ArrayObject;
 
 class PaymentDetails extends \ArrayObject
 {
-    protected $payum_id;
+    protected $id;
 }
 ```
 
@@ -70,7 +70,7 @@ return array(
             'hash'
         ),
         'payments' => array(
-            'paypal' => PaymentFactory::create(new Api(new Curl(), array(
+            'paypal_es' => PaymentFactory::create(new Api(new Curl(), array(
                 'username' => 'REPLACE WITH YOURS',
                 'password' => 'REPLACE WITH YOURS',
                 'signature' => 'REPLACE WITH YOURS',
@@ -78,7 +78,7 @@ return array(
             )))
         ),
         'storages' => array(
-            $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass),
+            $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass, 'id'),
         )
     ),
 );
@@ -99,40 +99,19 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $detailsClass = 'Application\Model\PaymentDetails';
+        $storage = $this->getServiceLocator()->get('payum')->getStorage('Application\Model\PaymentDetails');
 
-        $tokenStorage = $this->getServiceLocator()->get('payum.security.token_storage');
-        $storage = $this->getServiceLocator()->get('payum')->getStorage($detailsClass);
+        $details = $storage->createModel();
+        $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
+        $details['PAYMENTREQUEST_0_AMT'] = 1.23;
+        $storage->updateModel($details);
 
-        $paymentDetails = $storage->createModel();
-        $paymentDetails['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
-        $paymentDetails['PAYMENTREQUEST_0_AMT'] = 1.23;
-        $storage->updateModel($paymentDetails);
+        // FIXIT: I dont know how to inject controller plugin to the service.
+        $this->getServiceLocator()->get('payum.security.token_factory')->setUrlPlugin($this->url());
 
-        $doneToken = $tokenStorage->createModel();
-        $doneToken->setPaymentName('paypal');
-        $doneToken->setDetails($storage->getIdentificator($paymentDetails));
-        $doneToken->setTargetUrl($this->url()->fromRoute(
-            'capture_done',
-            array(),
-            array('force_canonical' => true, 'query' => array('payum_token' => $doneToken->getHash()))
-        ));
-        $tokenStorage->updateModel($doneToken);
-
-        $captureToken = $tokenStorage->createModel();
-        $captureToken->setPaymentName('paypal');
-        $captureToken->setDetails($storage->getIdentificator($paymentDetails));
-        $captureToken->setTargetUrl($this->url()->fromRoute(
-            'payum_capture_do',
-            array(),
-            array('force_canonical' => true, 'query' => array('payum_token' => $captureToken->getHash()))
-        ));
-        $captureToken->setAfterUrl($doneToken->getTargetUrl());
-        $tokenStorage->updateModel($captureToken);
-
-        $paymentDetails['RETURNURL'] = $captureToken->getTargetUrl();
-        $paymentDetails['CANCELURL'] = $captureToken->getTargetUrl();
-        $storage->updateModel($paymentDetails);
+        $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
+            'paypal_es', $details, 'payment_done'
+        );
 
         $this->redirect()->toUrl($captureToken->getTargetUrl());
     }
@@ -179,10 +158,10 @@ and route for it:
 return array(
     'router' => array(
         'routes' => array(
-            'capture_done' => array(
+            'payment_done' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route'    => '/done[/:payum_token]',
+                    'route'    => '/payment/done[/:payum_token]',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
                         'action'     => 'done',
