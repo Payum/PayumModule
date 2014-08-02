@@ -1,7 +1,7 @@
 # PayumModule
 
 The modulee integrates [payum](https://github.com/Payum/Payum) into [zend2](http://framework.zend.com/) framework.
-It already supports [+35 payments](http://payum.org/doc/0.9/Core/supported-payments).
+It already supports [+35 payments](https://github.com/Payum/Core/blob/master/Resources/docs/supported-payments.md).
 Provide nice configuration layer, secured capture controller, storages integration and lots of more features.
 
 ## Resources
