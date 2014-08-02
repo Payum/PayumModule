@@ -3,6 +3,18 @@
 In this chapter we would show basic setup and usage of payum module for [zf2](http://framework.zend.com/).
 We are using paypal here but it could be adopted for any other supported payments.
 
+## Installation
+
+```bash
+php composer.phar require "payum/payum-module:*@stable" "payum/xxx:*@stable"
+```
+
+_**Note**: Where payum/xxx is a payum package, for example it could be payum/paypal-express-checkout-nvp. Look at [supported payments](https://github.com/Payum/Core/blob/master/Resources/docs/supported-payments.md) to find out what you can use._
+
+_**Note**: Use payum/payum if you want to install all payments at once._
+
+Now you have all codes prepared and ready to be used.
+
 ## Configuration
 
 First add some models to your application:
