@@ -102,7 +102,6 @@ return array(
 <?php
 namespace Application\Controller;
 
-use Payum\Core\Request\BinaryMaskStatusRequest;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -138,7 +137,7 @@ We will be redirected to it after the payment is done. Let's start from action:
 <?php
 namespace Application\Controller;
 
-use Payum\Core\Request\BinaryMaskStatusRequest;
+use Payum\Core\Request\GetHumanStatus;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -152,7 +151,7 @@ class IndexController extends AbstractActionController
 
         $payment = $this->getServiceLocator()->get('payum')->getPayment($token->getPaymentName());
 
-        $payment->execute($status = new BinaryMaskStatusRequest($token));
+        $payment->execute($status = new GetHumanStatus($token));
 
         return new JsonModel(array('status' => $status->getStatus()) + iterator_to_array($status->getModel()));
     }

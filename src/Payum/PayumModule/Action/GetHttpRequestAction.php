@@ -3,7 +3,7 @@ namespace Payum\PayumModule\Action;
 
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\Http\GetRequestRequest;
+use Payum\Core\Request\GetHttpRequest;
 use Zend\Http\Request;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -27,7 +27,7 @@ class GetHttpRequestAction implements ActionInterface
      */
     public function execute($request)
     {
-        /** @var $request GetRequestRequest */
+        /** @var $request GetHttpRequest */
         if (false == $this->supports($request)) {
             throw RequestNotSupportedException::createActionNotSupported($this, $request);
         }
@@ -48,6 +48,6 @@ class GetHttpRequestAction implements ActionInterface
      */
     public function supports($request)
     {
-        return $request instanceof GetRequestRequest;
+        return $request instanceof GetHttpRequest;
     }
 }

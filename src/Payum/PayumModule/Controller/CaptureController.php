@@ -1,10 +1,10 @@
 <?php
 namespace Payum\PayumModule\Controller;
 
-use Payum\Core\Request\Http\RedirectUrlInteractiveRequest;
-use Payum\Core\Request\Http\ResponseInteractiveRequest;
-use Payum\Core\Request\InteractiveRequestInterface;
-use Payum\Core\Request\SecuredCaptureRequest;
+use Payum\Core\Reply\HttpRedirect;
+use Payum\Core\Reply\HttpResponse;
+use Payum\Core\Reply\ReplyInterface;
+use Payum\Core\Request\SecuredCapture;
 use Zend\Http\Response;
 
 class CaptureController extends PayumController
@@ -16,23 +16,23 @@ class CaptureController extends PayumController
         $payment = $this->getPayum()->getPayment($token->getPaymentName());
 
         try {
-            $payment->execute(new SecuredCaptureRequest($token));
-        } catch (InteractiveRequestInterface $interactiveRequest) {
-            if ($interactiveRequest instanceof RedirectUrlInteractiveRequest) {
-                $this->redirect()->toUrl($interactiveRequest->getUrl());
+            $payment->execute(new SecuredCapture($token));
+        } catch (ReplyInterface $reply) {
+            if ($reply instanceof HttpRedirect) {
+                $this->redirect()->toUrl($reply->getUrl());
             }
 
-            if ($interactiveRequest instanceof ResponseInteractiveRequest) {
-                $this->getResponse()->setContent($interactiveRequest->getContent());
+            if ($reply instanceof HttpResponse) {
+                $this->getResponse()->setContent($reply->getContent());
 
                 $response = new Response();
                 $response->setStatusCode(200);
-                $response->setContent($interactiveRequest->getContent());
+                $response->setContent($reply->getContent());
 
                 return $response;
             }
 
-            throw new \LogicException('Unsupported interactive request', null, $interactiveRequest);
+            throw new \LogicException('Unsupported reply', null, $reply);
         }
 
         $this->getHttpRequestVerifier()->invalidate($token);
