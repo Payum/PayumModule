@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "~2.2",
-        "payum/core": "0.11.*@dev"
+        "payum/core": "0.11.*"
     },
     "suggest": {
         "payum/paypal-express-checkout-nvp": "If you want to use paypal express checkout nvp gateway",
