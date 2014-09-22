@@ -15,7 +15,8 @@ class TokenFactoryFactory implements FactoryInterface
             $serviceLocator->get('payum.security.token_storage'),
             $serviceLocator->get('payum'),
             'payum_capture_do',
-            'payum_notify_do'
+            'payum_notify_do',
+            'payum_authorize_do'
         );
     }
 }
