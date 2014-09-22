@@ -28,6 +28,19 @@ return array(
                     ),
                 ),
             ),
+            'payum_authorize_do' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/payment/authorize[/:payum_token]',
+                    'constraints' => array(
+                        'payum_token' => '[a-zA-Z0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'PayumAuthorize',
+                        'action' => 'do'
+                    ),
+                ),
+            ),
         ),
     ),
 );
