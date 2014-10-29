@@ -4,7 +4,7 @@ namespace Payum\PayumModule\Controller;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Reply\ReplyInterface;
-use Payum\Core\Request\SecuredCapture;
+use Payum\Core\Request\Capture;
 use Zend\Http\Response;
 
 class CaptureController extends PayumController
@@ -16,7 +16,7 @@ class CaptureController extends PayumController
         $payment = $this->getPayum()->getPayment($token->getPaymentName());
 
         try {
-            $payment->execute(new SecuredCapture($token));
+            $payment->execute(new Capture($token));
         } catch (ReplyInterface $reply) {
             if ($reply instanceof HttpRedirect) {
                 $this->redirect()->toUrl($reply->getUrl());

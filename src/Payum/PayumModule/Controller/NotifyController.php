@@ -1,7 +1,7 @@
 <?php
 namespace Payum\PayumModule\Controller;
 
-use Payum\Core\Request\SecuredNotify;
+use Payum\Core\Request\Notify;
 
 class NotifyController extends PayumController
 {
@@ -11,7 +11,7 @@ class NotifyController extends PayumController
 
         $payment = $this->getPayum()->getPayment($token->getPaymentName());
 
-        $payment->execute(new SecuredNotify($_REQUEST, $token));
+        $payment->execute(new Notify($token));
 
         $this->getResponse()->setStatusCode(204);
     }

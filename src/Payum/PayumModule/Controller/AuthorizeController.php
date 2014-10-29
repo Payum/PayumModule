@@ -4,8 +4,7 @@ namespace Payum\PayumModule\Controller;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Reply\ReplyInterface;
-use Payum\Core\Request\SecuredAuthorize;
-use Payum\Core\Request\SecuredCapture;
+use Payum\Core\Request\Authorize;
 use Zend\Http\Response;
 
 class AuthorizeController extends PayumController
@@ -17,7 +16,7 @@ class AuthorizeController extends PayumController
         $payment = $this->getPayum()->getPayment($token->getPaymentName());
 
         try {
-            $payment->execute(new SecuredAuthorize($token));
+            $payment->execute(new Authorize($token));
         } catch (ReplyInterface $reply) {
             if ($reply instanceof HttpRedirect) {
                 $this->redirect()->toUrl($reply->getUrl());
