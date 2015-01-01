@@ -74,6 +74,8 @@ use Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory;
 
 $detailsClass = 'Application\Model\PaymentDetails';
 
+$paypalExpressCheckoutPaymentFactory = new \Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory();
+
 return array(
     'payum' => array(
         'token_storage' => new FilesystemStorage(
@@ -82,12 +84,12 @@ return array(
             'hash'
         ),
         'payments' => array(
-            'paypal_ec' => PaymentFactory::create(new Api(new Curl(), array(
-                'username' => 'REPLACE WITH YOURS',
-                'password' => 'REPLACE WITH YOURS',
-                'signature' => 'REPLACE WITH YOURS',
+            'paypal_ec' => $paypalExpressCheckoutPaymentFactory->create(array(
+                'username' => 'EDIT ME',
+                'password' => 'EDIT ME',
+                'signature' => 'EDIT ME',
                 'sandbox' => true
-            )))
+            )),
         ),
         'storages' => array(
             $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass, 'id'),
