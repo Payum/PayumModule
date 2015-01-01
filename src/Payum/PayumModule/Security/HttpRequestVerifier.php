@@ -45,7 +45,7 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
         if ($hash instanceof Token) {
             $token = $hash;
         } else {
-            if (false == $token = $this->tokenStorage->findModelById($hash)) {
+            if (false == $token = $this->tokenStorage->find($hash)) {
                 //TODO here again should be 404
                 throw new InvalidArgumentException(sprintf('A token with hash `%s` could not be found.', $hash));
             }
@@ -68,6 +68,6 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
      */
     public function invalidate(TokenInterface $token)
     {
-        $this->tokenStorage->deleteModel($token);
+        $this->tokenStorage->delete($token);
     }
 }

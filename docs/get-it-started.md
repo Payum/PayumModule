@@ -82,7 +82,7 @@ return array(
             'hash'
         ),
         'payments' => array(
-            'paypal_es' => PaymentFactory::create(new Api(new Curl(), array(
+            'paypal_ec' => PaymentFactory::create(new Api(new Curl(), array(
                 'username' => 'REPLACE WITH YOURS',
                 'password' => 'REPLACE WITH YOURS',
                 'signature' => 'REPLACE WITH YOURS',
@@ -112,16 +112,16 @@ class IndexController extends AbstractActionController
     {
         $storage = $this->getServiceLocator()->get('payum')->getStorage('Application\Model\PaymentDetails');
 
-        $details = $storage->createModel();
+        $details = $storage->create();
         $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
         $details['PAYMENTREQUEST_0_AMT'] = 1.23;
-        $storage->updateModel($details);
+        $storage->update($details);
 
         // FIXIT: I dont know how to inject controller plugin to the service.
         $this->getServiceLocator()->get('payum.security.token_factory')->setUrlPlugin($this->url());
 
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
-            'paypal_es', $details, 'payment_done'
+            'paypal_ec', $details, 'payment_done'
         );
 
         $this->redirect()->toUrl($captureToken->getTargetUrl());

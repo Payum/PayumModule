@@ -41,6 +41,19 @@ return array(
                     ),
                 ),
             ),
+            'payum_refund_do' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/payment/refund[/:payum_token]',
+                    'constraints' => array(
+                        'payum_token' => '[a-zA-Z0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'PayumRefund',
+                        'action' => 'do'
+                    ),
+                ),
+            ),
         ),
     ),
 );
