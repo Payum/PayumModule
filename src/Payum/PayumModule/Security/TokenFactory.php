@@ -1,10 +1,10 @@
 <?php
 namespace Payum\PayumModule\Security;
 
-use Payum\Core\Security\AbstractGenericTokenFactory;
+use Payum\Core\Security\AbstractTokenFactory;
 use Zend\Mvc\Controller\Plugin\Url;
 
-class TokenFactory extends AbstractGenericTokenFactory
+class TokenFactory extends AbstractTokenFactory
 {
     /**
      * @var Url

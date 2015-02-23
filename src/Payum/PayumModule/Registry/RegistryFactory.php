@@ -19,7 +19,7 @@ class RegistryFactory implements FactoryInterface
         $registry = new ServiceLocatorAwareRegistry(
             $options->getPayments(),
             $options->getStorages(),
-            null
+            []
         );
 
         $getHttpRequestAction = new GetHttpRequestAction($serviceLocator);
