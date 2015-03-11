@@ -21,14 +21,14 @@ class RegistryFactory implements FactoryInterface
             $options->getStorages(),
             []
         );
+        
+        //TODO: quick fix. we should avoid early init of services. has to be reworked to be lazy
+        $registry->setServiceLocator($serviceLocator);
 
         $getHttpRequestAction = new GetHttpRequestAction($serviceLocator);
         foreach ($registry->getPayments() as $payment) {
             $payment->addAction($getHttpRequestAction);
         }
-        
-        //TODO: quick fix. we should avoid early init of services. has to be reworked to be lazy
-        $registry->setServiceLocator($serviceLocator);
 
         return $registry;
     }
