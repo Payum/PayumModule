@@ -11,7 +11,7 @@ class AuthorizeController extends PayumController
 {
     public function doAction()
     {
-        $token = $this->getHttpRequestVerifier()->verify($this->getRequest());
+        $token = $this->getHttpRequestVerifier()->verify($this);
 
         $payment = $this->getPayum()->getPayment($token->getPaymentName());
 
