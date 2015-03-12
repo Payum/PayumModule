@@ -7,7 +7,7 @@ return array(
                 'options' => array(
                     'route' => '/payment/capture[/:payum_token]',
                     'constraints' => array(
-                        'payum_token' => '[a-zA-Z0-9]+'
+                        'payum_token' => '[a-zA-Z0-9_-]+'
                     ),
                     'defaults' => array(
                         'controller' => 'PayumCapture',
@@ -20,7 +20,7 @@ return array(
                 'options' => array(
                     'route' => '/payment/notify[/:payum_token]',
                     'constraints' => array(
-                        'payum_token' => '[a-zA-Z0-9]+'
+                        'payum_token' => '[a-zA-Z0-9_-]+'
                     ),
                     'defaults' => array(
                         'controller' => 'PayumNotify',
@@ -33,7 +33,7 @@ return array(
                 'options' => array(
                     'route' => '/payment/authorize[/:payum_token]',
                     'constraints' => array(
-                        'payum_token' => '[a-zA-Z0-9]+'
+                        'payum_token' => '[a-zA-Z0-9_-]+'
                     ),
                     'defaults' => array(
                         'controller' => 'PayumAuthorize',
@@ -46,7 +46,7 @@ return array(
                 'options' => array(
                     'route' => '/payment/refund[/:payum_token]',
                     'constraints' => array(
-                        'payum_token' => '[a-zA-Z0-9]+'
+                        'payum_token' => '[a-zA-Z0-9_-]+'
                     ),
                     'defaults' => array(
                         'controller' => 'PayumRefund',
