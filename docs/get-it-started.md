@@ -119,9 +119,6 @@ class IndexController extends AbstractActionController
         $details['PAYMENTREQUEST_0_AMT'] = 1.23;
         $storage->update($details);
 
-        // FIXIT: I dont know how to inject controller plugin to the service.
-        $this->getServiceLocator()->get('payum.security.token_factory')->setUrlPlugin($this->url());
-
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
             'paypal_ec', $details, 'payment_done'
         );
