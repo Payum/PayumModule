@@ -27,9 +27,6 @@ class TokenFactory extends AbstractTokenFactory
      */
     protected function generateUrl($path, array $parameters = array())
     {
-        return $this->urlPlugin->fromRoute($path, array(), array(
-            'force_canonical' => true,
-            'query' => $parameters
-        ));
+        return $this->urlPlugin->fromRoute($path, $parameters, array('force_canonical' => true));
     }
 }
