@@ -13,10 +13,10 @@ class AuthorizeController extends PayumController
     {
         $token = $this->getHttpRequestVerifier()->verify($this);
 
-        $payment = $this->getPayum()->getPayment($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         try {
-            $payment->execute(new Authorize($token));
+            $gateway->execute(new Authorize($token));
         } catch (ReplyInterface $reply) {
             if ($reply instanceof HttpRedirect) {
                 $this->redirect()->toUrl($reply->getUrl());

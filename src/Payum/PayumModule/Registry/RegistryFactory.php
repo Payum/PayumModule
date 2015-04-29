@@ -17,7 +17,7 @@ class RegistryFactory implements FactoryInterface
         $options = $serviceLocator->get('payum.options');
 
         $registry = new ServiceLocatorAwareRegistry(
-            $options->getPayments(),
+            $options->getGateways(),
             $options->getStorages(),
             []
         );
@@ -26,8 +26,8 @@ class RegistryFactory implements FactoryInterface
         $registry->setServiceLocator($serviceLocator);
 
         $getHttpRequestAction = new GetHttpRequestAction($serviceLocator);
-        foreach ($registry->getPayments() as $payment) {
-            $payment->addAction($getHttpRequestAction);
+        foreach ($registry->getGateways() as $gateway) {
+            $gateway->addAction($getHttpRequestAction);
         }
 
         return $registry;
