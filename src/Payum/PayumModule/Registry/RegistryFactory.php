@@ -19,7 +19,7 @@ class RegistryFactory implements FactoryInterface
         $registry = new ServiceLocatorAwareRegistry(
             $options->getGateways(),
             $options->getStorages(),
-            []
+            array()
         );
         
         //TODO: quick fix. we should avoid early init of services. has to be reworked to be lazy
