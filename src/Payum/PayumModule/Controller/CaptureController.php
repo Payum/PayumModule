@@ -19,7 +19,7 @@ class CaptureController extends PayumController
             $gateway->execute(new Capture($token));
         } catch (ReplyInterface $reply) {
             if ($reply instanceof HttpRedirect) {
-                $this->redirect()->toUrl($reply->getUrl());
+                return $this->redirect()->toUrl($reply->getUrl());
             }
 
             if ($reply instanceof HttpResponse) {
@@ -37,6 +37,6 @@ class CaptureController extends PayumController
 
         $this->getHttpRequestVerifier()->invalidate($token);
 
-        $this->redirect()->toUrl($token->getAfterUrl());
+        return $this->redirect()->toUrl($token->getAfterUrl());
     }
 }
