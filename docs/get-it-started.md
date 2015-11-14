@@ -152,7 +152,7 @@ class IndexController extends AbstractActionController
 
         $gateway->execute($status = new GetHumanStatus($token));
 
-        return new JsonModel(array('status' => $status->getStatus()) + iterator_to_array($status->getModel()));
+        return new JsonModel(array('status' => $status->getValue()) + iterator_to_array($status->getModel()));
     }
 }
 ```
