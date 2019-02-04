@@ -7,7 +7,7 @@ class PayumOptions extends AbstractOptions
 {
     protected $tokenStorage;
 
-    protected $payments = array();
+    protected $gateways = array();
 
     protected $storages = array();
 
@@ -30,17 +30,17 @@ class PayumOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getPayments()
+    public function getGateways()
     {
-        return $this->payments;
+        return $this->gateways;
     }
 
     /**
-     * @param array $payments
+     * @param array $gateways
      */
-    public function setPayments(array $payments)
+    public function setGateways(array $gateways)
     {
-        $this->payments = $payments;
+        $this->gateways = $gateways;
     }
 
     /**

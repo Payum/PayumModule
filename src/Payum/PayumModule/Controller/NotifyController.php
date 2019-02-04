@@ -1,17 +1,17 @@
 <?php
 namespace Payum\PayumModule\Controller;
 
-use Payum\Core\Request\SecuredNotify;
+use Payum\Core\Request\Notify;
 
 class NotifyController extends PayumController
 {
     public function doAction()
     {
-        $token = $this->getHttpRequestVerifier()->verify($this->getRequest());
+        $token = $this->getHttpRequestVerifier()->verify($this);
 
-        $payment = $this->getPayum()->getPayment($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
-        $payment->execute(new SecuredNotify($_REQUEST, $token));
+        $gateway->execute(new Notify($token));
 
         $this->getResponse()->setStatusCode(204);
     }

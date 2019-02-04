@@ -17,18 +17,18 @@ class RegistryFactory implements FactoryInterface
         $options = $serviceLocator->get('payum.options');
 
         $registry = new ServiceLocatorAwareRegistry(
-            $options->getPayments(),
+            $options->getGateways(),
             $options->getStorages(),
-            null
+            array()
         );
-
-        $getHttpRequestAction = new GetHttpRequestAction($serviceLocator);
-        foreach ($registry->getPayments() as $payment) {
-            $payment->addAction($getHttpRequestAction);
-        }
         
         //TODO: quick fix. we should avoid early init of services. has to be reworked to be lazy
         $registry->setServiceLocator($serviceLocator);
+
+        $getHttpRequestAction = new GetHttpRequestAction($serviceLocator);
+        foreach ($registry->getGateways() as $gateway) {
+            $gateway->addAction($getHttpRequestAction);
+        }
 
         return $registry;
     }

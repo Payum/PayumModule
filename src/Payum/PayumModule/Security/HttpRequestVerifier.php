@@ -26,8 +26,11 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
     /**
      * {@inheritDoc}
      */
-    public function verify($httpRequest)
+    public function verify($controller)
     {
+        
+        $httpRequest = $controller->getRequest();
+        
         if (false == $httpRequest instanceof Request) {
             throw new InvalidArgumentException(sprintf(
                 'Invalid request given. Expected %s but it is %s',
@@ -36,8 +39,10 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
             ));
         }
 
+         $hash = $controller->params()->fromRoute('payum_token') ?: $httpRequest->getQuery('payum_token');
+
         /** @var $httpRequest Request */
-        if (false === $hash = $httpRequest->getQuery('payum_token')) {
+        if (!$hash) {
             //TODO we should set 404 to response but I do not know how. symfony just throws not found exception.
             throw new InvalidArgumentException('Token parameter not set in request');
         }
@@ -45,7 +50,7 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
         if ($hash instanceof Token) {
             $token = $hash;
         } else {
-            if (false == $token = $this->tokenStorage->findModelById($hash)) {
+            if (false == $token = $this->tokenStorage->find($hash)) {
                 //TODO here again should be 404
                 throw new InvalidArgumentException(sprintf('A token with hash `%s` could not be found.', $hash));
             }
@@ -68,6 +73,6 @@ class HttpRequestVerifier implements HttpRequestVerifierInterface
      */
     public function invalidate(TokenInterface $token)
     {
-        $this->tokenStorage->deleteModel($token);
+        $this->tokenStorage->delete($token);
     }
 }

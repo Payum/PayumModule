@@ -1,10 +1,10 @@
 <?php
 namespace Payum\PayumModule\Security;
 
-use Payum\Core\Security\AbstractGenericTokenFactory;
+use Payum\Core\Security\AbstractTokenFactory;
 use Zend\Mvc\Controller\Plugin\Url;
 
-class TokenFactory extends AbstractGenericTokenFactory
+class TokenFactory extends AbstractTokenFactory
 {
     /**
      * @var Url
@@ -27,9 +27,6 @@ class TokenFactory extends AbstractGenericTokenFactory
      */
     protected function generateUrl($path, array $parameters = array())
     {
-        return $this->urlPlugin->fromRoute($path, array(), array(
-            'force_canonical' => true,
-            'query' => $parameters
-        ));
+        return $this->urlPlugin->fromRoute($path, $parameters, array('force_canonical' => true));
     }
 }

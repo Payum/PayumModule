@@ -2,7 +2,7 @@
 return array(
     'payum' => array(
         'token_storage' => null,
-        'payments'      => array(),
+        'gateways'      => array(),
         'storages'      => array(),
     ),
 );

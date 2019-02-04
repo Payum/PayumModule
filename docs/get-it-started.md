@@ -1,7 +1,7 @@
 # Get it started.
 
 In this chapter we would show basic setup and usage of payum module for [zf2](http://framework.zend.com/).
-We are using paypal here but it could be adopted for any other supported payments.
+We are using paypal here but it could be adopted for any other supported gateways.
 
 ## Installation
 
@@ -9,9 +9,9 @@ We are using paypal here but it could be adopted for any other supported payment
 php composer.phar require "payum/payum-module:*@stable" "payum/xxx:*@stable"
 ```
 
-_**Note**: Where payum/xxx is a payum package, for example it could be payum/paypal-express-checkout-nvp. Look at [supported payments](https://github.com/Payum/Core/blob/master/Resources/docs/supported-payments.md) to find out what you can use._
+_**Note**: Where payum/xxx is a payum package, for example it could be payum/paypal-express-checkout-nvp. Look at [supported gateways](https://github.com/Payum/Core/blob/master/Resources/docs/supported-gateways.md) to find out what you can use._
 
-_**Note**: Use payum/payum if you want to install all payments at once._
+_**Note**: Use payum/payum if you want to install all gateways at once._
 
 Now you have all codes prepared and ready to be used.
 
@@ -70,9 +70,11 @@ use Buzz\Client\Curl;
 use Payum\Core\Extension\StorageExtension;
 use Payum\Core\Storage\FilesystemStorage;
 use Payum\Paypal\ExpressCheckout\Nvp\Api;
-use Payum\Paypal\ExpressCheckout\Nvp\PaymentFactory;
+use Payum\Paypal\ExpressCheckout\Nvp\GatewayFactory;
 
 $detailsClass = 'Application\Model\PaymentDetails';
+
+$paypalFactory = new \Payum\Paypal\ExpressCheckout\Nvp\PaypalExpressCheckoutGatewayFactory();
 
 return array(
     'payum' => array(
@@ -81,13 +83,13 @@ return array(
             'Application\Model\PaymentSecurityToken',
             'hash'
         ),
-        'payments' => array(
-            'paypal_es' => PaymentFactory::create(new Api(new Curl(), array(
-                'username' => 'REPLACE WITH YOURS',
-                'password' => 'REPLACE WITH YOURS',
-                'signature' => 'REPLACE WITH YOURS',
+        'gateways' => array(
+            'paypal_ec' => $paypalFactory->create(array(
+                'username' => 'EDIT ME',
+                'password' => 'EDIT ME',
+                'signature' => 'EDIT ME',
                 'sandbox' => true
-            )))
+            )),
         ),
         'storages' => array(
             $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass, 'id'),
@@ -112,16 +114,13 @@ class IndexController extends AbstractActionController
     {
         $storage = $this->getServiceLocator()->get('payum')->getStorage('Application\Model\PaymentDetails');
 
-        $details = $storage->createModel();
+        $details = $storage->create();
         $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
         $details['PAYMENTREQUEST_0_AMT'] = 1.23;
-        $storage->updateModel($details);
-
-        // FIXIT: I dont know how to inject controller plugin to the service.
-        $this->getServiceLocator()->get('payum.security.token_factory')->setUrlPlugin($this->url());
+        $storage->update($details);
 
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
-            'paypal_es', $details, 'payment_done'
+            'paypal_ec', $details, 'payment_done'
         );
 
         $this->redirect()->toUrl($captureToken->getTargetUrl());
@@ -147,13 +146,13 @@ class IndexController extends AbstractActionController
 {
     public function doneAction()
     {
-        $token = $this->getServiceLocator()->get('payum.security.http_request_verifier')->verify($this->getRequest());
+        $token = $this->getServiceLocator()->get('payum.security.http_request_verifier')->verify($this);
 
-        $payment = $this->getServiceLocator()->get('payum')->getPayment($token->getPaymentName());
+        $gateway = $this->getServiceLocator()->get('payum')->getGateway($token->getGatewayName());
 
-        $payment->execute($status = new GetHumanStatus($token));
+        $gateway->execute($status = new GetHumanStatus($token));
 
-        return new JsonModel(array('status' => $status->getStatus()) + iterator_to_array($status->getModel()));
+        return new JsonModel(array('status' => $status->getValue()) + iterator_to_array($status->getModel()));
     }
 }
 ```

@@ -4,19 +4,20 @@ namespace Payum\PayumModule\Controller;
 use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Reply\ReplyInterface;
-use Payum\Core\Request\Capture;
+use Payum\Core\Request\Refund;
 use Zend\Http\Response;
 
-class CaptureController extends PayumController
+class RefundController extends PayumController
 {
     public function doAction()
     {
         $token = $this->getHttpRequestVerifier()->verify($this);
+        $this->getHttpRequestVerifier()->invalidate($token);
 
         $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         try {
-            $gateway->execute(new Capture($token));
+            $gateway->execute(new Refund($token));
         } catch (ReplyInterface $reply) {
             if ($reply instanceof HttpRedirect) {
                 return $this->redirect()->toUrl($reply->getUrl());
@@ -34,8 +35,6 @@ class CaptureController extends PayumController
 
             throw new \LogicException('Unsupported reply', null, $reply);
         }
-
-        $this->getHttpRequestVerifier()->invalidate($token);
 
         return $this->redirect()->toUrl($token->getAfterUrl());
     }
